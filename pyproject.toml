@@ -1,0 +1,87 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gdmloader"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.11"
+license = "BSD-3-Clause"
+keywords = []
+authors = [
+  { name = "Kapil Duwadi", email = "Kapil.Duwadi@nrel.gov" },
+  { name = "Aadil Latif", email = "Aadil.Latif@nrel.gov" },
+]
+classifiers = [
+  "Programming Language :: Python :: 3.11",
+  "License :: OSI Approved :: BSD License",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "grid-data-models",
+  "fsspec",
+  "requests"
+]
+
+[project.optional-dependencies]
+dev = ["pre-commit", "pytest", "pytest-cov", "ruff"]
+
+
+[project.urls]
+Documentation = "https://github.com/NREL-Distribution-Suites/gdmloader#readme"
+Issues = "https://github.com/NREL-Distribution-Suites/gdmloader/issues"
+Source = "https://github.com/NREL-Distribution-Suites/gdmloader"
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [".git", ".ruff_cache", ".venv", "_build", "build", "dist", "venv"]
+ignore-init-module-imports = true
+line-length = 99
+indent-width = 4
+target-version = "py311"
+
+[tool.hatch.version]
+path = 'src/gdmloader/version.py'
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+testpaths = ["tests"]
+
+[tool.ruff.lint]
+# Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
+select = [
+  "C901", # McCabe complexity
+  "E4",   # Subset of pycodestyle (E)
+  "E7",
+  "E9",
+  "F",    # Pyflakes
+  "W",    # pycodestyle warnings
+]
+ignore = []
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402", "F401"]
+"**/{tests,docs,tools}/*" = ["E402"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gdmloader"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/gdmloader"]
