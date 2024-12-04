@@ -111,6 +111,9 @@ class SystemLoader:
         local_folder = self._cached_folder / source_name / system_type.__name__ / version
         if not local_folder.exists():
             local_folder.mkdir(parents=True)
+
+        dataset_folder = local_folder / dataset_name
+        if not dataset_folder.exists():
             try:
                 source.fs.get(
                     remote_folder,
@@ -119,10 +122,9 @@ class SystemLoader:
                 )
             except FileNotFoundError:
                 msg = f"{remote_folder=} not found! Check the URL: {source.url}/{remote_folder}"
-                shutil.rmtree(local_folder)
                 raise ValueError(msg)
 
-        system_file = list(local_folder.rglob("*.json"))[0]
+        system_file = list(dataset_folder.rglob("*.json"))[0]
         return system_type.from_json(system_file)
 
     def invalidate_cache(self):
