@@ -8,3 +8,10 @@ GDM_CASE_SOURCE = SourceModel(
     url="https://github.com/NREL-Distribution-Suites/gdm-cases",
     folder="data",
 )
+
+GCS_CASE_SOURCE = SourceModel(
+    fs=fsspec.filesystem("gcs"),
+    name="gdm_data",
+    url="https://storage.googleapis.com/gdm_data",
+    folder="data",
+)

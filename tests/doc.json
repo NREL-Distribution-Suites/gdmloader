@@ -1,0 +1,47 @@
+[
+    {
+        "name": "p5r",
+        "description": "Slightly modified version of sub feeder within `P5R` region SMARTDS data from `SFO` area. Added PVsystem.",
+        "contributor": "Kapil Duwadi",
+        "contributed_date": "2024-12-03",
+        "has_geo_coordinate": true,
+        "has_time_series_data": true,
+        "has_split_phase": true
+    },
+    {
+        "name": "three_feeder_variable_load_no_switch",
+        "description": "Three feeder test case with non-identical feeder load without tie switches.",
+        "contributor": "Abodh Poudyal",
+        "contributed_date": "2024-12-13",
+        "has_geo_coordinate": false,
+        "has_time_series_data": false,
+        "has_split_phase": false
+    },
+    {
+        "name": "three_feeder_variable_load_switch",
+        "description": "Three feeder test case with non-identical feeder load and switches.",
+        "contributor": "Abodh Poudyal",
+        "contributed_date": "2024-12-13",
+        "has_geo_coordinate": false,
+        "has_time_series_data": false,
+        "has_split_phase": false
+    },
+    {
+        "name": "three_feeder_switch",
+        "description": "Three feeder test case with switches.",
+        "contributor": "Abodh Poudyal",
+        "contributed_date": "2024-12-03",
+        "has_geo_coordinate": false,
+        "has_time_series_data": false,
+        "has_split_phase": false
+    },
+    {
+        "name": "testcasev1",
+        "description": "Simple test case for CADET testing.",
+        "contributor": "Kapil Duwadi",
+        "contributed_date": "2024-12-03",
+        "has_geo_coordinate": false,
+        "has_time_series_data": false,
+        "has_split_phase": false
+    }
+]

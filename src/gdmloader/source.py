@@ -20,7 +20,7 @@ class SourceModel(BaseModel):
         Field(..., description="Filesystem reference."),
     ]
     name: Annotated[str, Field(..., description="Name of the data source")]
-    url: Annotated[str, Field(..., description="URL of the data source")]
+    url: Annotated[str | None, Field(..., description="URL of the data source")]
     folder: Annotated[
         str, Field(..., description="Entry folder of the data source")
     ]
@@ -62,7 +62,7 @@ class SystemLoader:
         if not local_doc_file_path.exists():
             source = self._sources[source_name]
             remote_doc_file_path = (
-                f"{source.folder}/{system_name}/{self.__doc_file_name__}"
+                f"{source_name}/{source.folder}/{system_name}/{self.__doc_file_name__}"
             )
             source.fs.get(remote_doc_file_path, str(local_doc_file_path))
         with open(local_doc_file_path, "r", encoding="utf-8") as fpointer:
@@ -82,7 +82,7 @@ class SystemLoader:
         table = Table(title=f"System: {system_name} versions")
         table.add_column("Version", justify="right", no_wrap=True)
         source = self._sources[source_name]
-        for version in source.fs.ls(f"{source.folder}/{system_name}"):
+        for version in source.fs.ls(f"{source_name}/{source.folder}/{system_name}"):
             if version.endswith(".json"):
                 continue
             version = Path(version).stem
@@ -91,7 +91,8 @@ class SystemLoader:
 
     def show_dataset_by_source(self, source_name: str):
         source = self._sources[source_name]
-        for system_folder in source.fs.ls(source.folder):
+        dir_path = f"{source_name}/{source.folder}"
+        for system_folder in source.fs.ls(dir_path):
             system_name = Path(system_folder).stem
             self.show_dataset_by_system(system_name, source_name)
 
@@ -107,7 +108,7 @@ class SystemLoader:
         source = self._sources[source_name]
         if source is None:
             raise ValueError(f"Source {source_name} not found")
-        remote_folder = f"{source.folder}/{system_type.__name__}/{version}/{dataset_name}"
+        remote_folder = f"{source_name}/{source.folder}/{system_type.__name__}/{version}/{dataset_name}"
         local_folder = self._cached_folder / source_name / system_type.__name__ / version
         if not local_folder.exists():
             local_folder.mkdir(parents=True)
