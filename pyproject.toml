@@ -21,8 +21,9 @@ classifiers = [
 ]
 dependencies = [
   "grid-data-models",
-  "fsspec",
-  "requests"
+  "fsspec~=2025.3.2",
+  "gcsfs~=2025.3.2",
+  "requests~=2.32.3"
 ]
 
 [project.optional-dependencies]
