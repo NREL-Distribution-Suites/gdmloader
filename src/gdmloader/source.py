@@ -32,6 +32,11 @@ class SourceModel(BaseModel):
 def get_gdm_version() -> str:
     return importlib.metadata.version("grid-data-models").replace(".", "_")
 
+def fix_version(version):
+    if version.count(".") >= 3:
+        return version.rsplit(".", 1)[0]
+    return version
+
 
 class SystemLoader:
 
@@ -104,7 +109,7 @@ class SystemLoader:
         version: str | None = None,
     ):
         if version is None:
-            version = get_gdm_version()
+            version = fix_version(get_gdm_version())
         source = self._sources[source_name]
         if source is None:
             raise ValueError(f"Source {source_name} not found")
